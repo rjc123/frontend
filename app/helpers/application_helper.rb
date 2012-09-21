@@ -5,8 +5,8 @@ module ApplicationHelper
 
   def page_title(artefact, publication=nil)
     if publication
-      title = [publication.title, publication.alternative_title].find(&:present?)
-      title = "Video - #{title}" if request.format.video?
+      title = [publication["title"], publication["alternative_title"]].find(&:present?)
+      title = "Video - #{title}" if publication["format"] == "video"
     end
     if root_primary_section = root_primary_section(artefact)
       root_primary_section_title = root_primary_section["title"]
@@ -21,15 +21,15 @@ module ApplicationHelper
     html_classes = []
 
     if publication
-      if publication.type
-        html_classes << publication.type
+      if publication["format"]
+        html_classes << publication["format"]
       end
 
-      if request.format.video?
+      unless publication.fetch("details"){{}}["video_url"].blank?
         html_classes << "video-guide"
       end
 
-      if services.include? publication.type
+      if services.include? publication["format"]
         html_classes << "service"
       end
     elsif action_name == "settings" and request.format.html?

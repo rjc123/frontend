@@ -5,8 +5,8 @@
     <title><% if @publication %><%= page_title(@artefact, @publication) %><% else %><%= yield :title %><% end %></title>
     <%= yield :extra_stylesheets %>
 
-    <% if @publication and @publication.overview.present? %>
-      <meta name="description" content="<%= @publication.overview %>">
+    <% if @publication and @publication["details"]["overview"].present? %>
+      <meta name="description" content="<%= @publication["details"]["overview"] %>">
     <% else %>
       <%= yield :description %>
     <% end %>

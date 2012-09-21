@@ -30,20 +30,20 @@ class RootController < ApplicationController
     decipher_overloaded_part_parameter!
     merge_slug_for_done_pages!
 
-
-    @publication = fetch_publication(params)
-    assert_found(@publication)
-    setup_parts
-
     @artefact = begin
       content_api.artefact(params[:slug]).to_hash
     rescue GdsApi::HTTPErrorResponse => e
       logger.debug("Failed to fetch artefact from Content API. Response code: #{e.code}")
       artefact_unavailable
     end
+
+    @publication = @artefact
+    assert_found(@publication)
+    setup_parts
+
     set_slimmer_artefact_headers(@artefact)
 
-    case @publication.type
+    case @publication["format"]
     when "place"
       unless request.format.kml?
         set_expiry if params.exclude?('edition') and request.get?
@@ -57,7 +57,7 @@ class RootController < ApplicationController
 
     if video_requested_but_not_found? || part_requested_but_not_found? || empty_part_list?
       raise RecordNotFound
-    elsif @publication.parts && treat_as_standard_html_request? && @part.nil?
+    elsif @publication["details"]["parts"] && treat_as_standard_html_request? && @part.nil?
       params.delete(:slug)
       params.delete(:part)
       redirect_to publication_url(@publication.slug, @publication.parts.first.slug, params) and return
@@ -65,19 +65,19 @@ class RootController < ApplicationController
 
     @edition = params[:edition].present? ? params[:edition] : nil
 
-    instance_variable_set("@#{@publication.type}".to_sym, @publication)
+    instance_variable_set("@#{@publication["format"]}".to_sym, @publication)
 
     @not_found = false
     respond_to do |format|
       format.html do
-        if @publication.type == "local_transaction"
+        if @publication["format"] == "local_transaction"
           if @council.present? && @council[:url]
             redirect_to @council[:url] and return
           elsif council_from_geostack.any?
             @not_found = true
           end
         end
-        render @publication.type
+        render @publication["format"]
       end
       format.video do
         render @publication.type, layout: "application.html.erb"
@@ -132,11 +132,11 @@ protected
   end
 
   def empty_part_list?
-    @publication.parts and @publication.parts.empty?
+    @publication["details"]["parts"].to_a.empty?
   end
 
   def part_requested_but_not_found?
-    params[:part] && @publication.parts.blank?
+    params[:part] && @publication["details"]["parts"].to_a.empty?
   end
 
   def video_requested_but_not_found?
@@ -240,12 +240,12 @@ protected
   end
 
   def setup_parts
-    if @publication.type == 'programme'
+    if @publication["type"] == 'programme'
       params[:part] ||= @publication.parts.first.slug
     end
 
-    if @publication.parts
-      @part = @publication.find_part(params[:part])
+    if parts = @publication["details"]["parts"]
+      @part = parts.find{|p| p["slug"] == params[:part]}
     end
   end
 

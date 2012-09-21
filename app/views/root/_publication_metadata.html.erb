@@ -2,11 +2,11 @@
 
 <div class="meta-data group">
   <div class="inner">
-    <% if publication.updated_at %>
-      <p class="modified-date">Last updated: <%= publication.updated_at.to_formatted_s(:short_ordinal) %></p>
+    <% if publication["updated_at"] %>
+      <p class="modified-date">Last updated: <%= publication["updated_at"].to_formatted_s(:short_ordinal) %></p>
     <% end %>
-    <% if [:programme, :guide].include? publication.type.to_sym %>
-      <p class="print-link"><%= link_to "Print this guide", publication_path(publication.slug, :part => 'print') %></p>
+    <% if [:programme, :guide].include? publication["format"].to_sym %>
+      <p class="print-link"><%= link_to "Print this guide", publication["web_url"] %></p>
     <% end %>
   </div>
 </div>
