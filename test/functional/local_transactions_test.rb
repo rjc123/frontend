@@ -7,10 +7,11 @@ require 'gds_api/test_helpers/content_api'
 require 'focused_controller/functional_test_helper'
 
 module RootController
-  class PublicationTest < ActionController::TestCase
+  class LocalTransactionsTest < ActionController::TestCase
     include FocusedController::FunctionalTestHelper
     include Rack::Geo::Utils
 
+    self.controller_class = RootController::Publication
 
     def authority_json(snac, name = nil, tier = 'unitary')
       {
