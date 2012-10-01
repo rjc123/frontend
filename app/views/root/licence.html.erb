@@ -1,21 +1,21 @@
-<section id="content" role="main" class="group <%= "multi-page" if @licence_details and @licence_details[:authority] %>">
+<section id="content" role="main" class="group <%= "multi-page" if licence_details and licence_details[:authority] %>">
 
   <header class="page-header group">
     <hgroup>
-      <h1><span>Licence</span> <%= @licence.title %></h1>
+      <h1><span>Licence</span> <%= licence.title %></h1>
     </hgroup>
   </header>
 
   <div class="article-container group">
 
-    <% if ! @licence.continuation_link.blank? %>
+    <% if ! licence.continuation_link.blank? %>
       <%= render :partial => 'licences/continues_on' %>
-    <% elsif @licence_details and @licence_details[:authority] %>
+    <% elsif licence_details and licence_details[:authority] %>
       <%= render :partial => 'licences/authority' %>
     <% else %>
-      <%= render :partial => 'licences/introduction', :publication => @licence %>
+      <%= render :partial => 'licences/introduction', :publication => licence %>
     <% end %>
 
-    <%= render 'publication_metadata', :publication => @licence, :artefact => @artefact, :api_links => { 'application/json' => publication_path(@licence.slug, :edition => @edition, :format => :json) } %>
+    <%= render 'publication_metadata', :publication => licence, :artefact => artefact, :api_links => { 'application/json' => publication_path(licence.slug, :edition => edition, :format => :json) } %>
   </div>
 </section>

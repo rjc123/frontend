@@ -4,11 +4,13 @@ WebMock.disable_net_connect!(:allow_localhost => true)
 require 'gds_api/part_methods'
 require 'gds_api/test_helpers/publisher'
 require 'gds_api/test_helpers/panopticon'
+require 'focused_controller/functional_test_helper'
 
 class LicenceLocationTest < ActionController::TestCase
-
-  tests RootController
+  include FocusedController::FunctionalTestHelper
   include Rack::Geo::Utils
+
+  self.controller_class = RootController::Publication
 
   context "given a licence exists in publisher and panopticon" do
     setup do
@@ -24,10 +26,10 @@ class LicenceLocationTest < ActionController::TestCase
 
     context "loading the licence edition without any location" do
       should "return the normal content for a page" do
-        get :publication, slug: "licence-to-kill"
+        get slug: "licence-to-kill"
 
         assert_response :success
-        assert_equal assigns(:publication).title, "Licence to Kill"
+        assert response.body.include?("Licence to Kill")
       end
     end
 
@@ -41,7 +43,7 @@ class LicenceLocationTest < ActionController::TestCase
           ]}
           request.env["HTTP_X_GOVGEO_STACK"] = encode_stack councils
 
-          get :publication, slug: "licence-to-kill"
+          get slug: "licence-to-kill"
         end
 
         should "redirect to the slug for the lowest level authority" do
@@ -57,7 +59,7 @@ class LicenceLocationTest < ActionController::TestCase
           ]}
           request.env["HTTP_X_GOVGEO_STACK"] = encode_stack councils
 
-          get :publication, slug: "licence-to-kill"
+          get slug: "licence-to-kill"
         end
 
         should "redirect to the slug for the lowest level authority" do

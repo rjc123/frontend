@@ -118,7 +118,7 @@ module RootController
       return false
     end
 
-    def licence_details(artefact, licence_authority_slug, snac_code)
+    def get_licence_details(artefact, licence_authority_slug, snac_code)
       licence_attributes = { licence: artefact['details']['licence'] }
 
       return false if licence_attributes[:licence].blank? or licence_attributes[:licence]['error'].present?
@@ -244,6 +244,8 @@ module RootController
     expose(:edition)
     expose(:publication)
     expose(:not_found)
+    expose(:licence_details)
+    expose(:licence)
 
     def call
       error_406 and return if request.format.nil?
@@ -294,7 +296,7 @@ module RootController
       if @publication.type == "licence"
         # Relies on the artefact but could potentially be moved elsewhere
         # once we're loading publications and artefacts in one go
-        @licence_details = licence_details(@artefact, @licence_authority_slug, @snac_code)
+        @licence_details = get_licence_details(@artefact, @licence_authority_slug, @snac_code)
       end
 
       @edition = params[:edition]
