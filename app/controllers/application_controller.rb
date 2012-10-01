@@ -6,6 +6,10 @@ class ApplicationController < ActionController::Base
   include GdsApi::Helpers
   include Slimmer::Headers
 
+  class Action < ApplicationController
+    include FocusedController::Mixin
+  end
+
   def error_404; error 404; end
   def error_406; error 406; end
   def error_500; error 500; end
