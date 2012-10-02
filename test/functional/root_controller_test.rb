@@ -199,7 +199,7 @@ class RootControllerTest < ActionController::TestCase
      get :slug => "a-slug",:edition => edition_id
   end
 
-  test "should pass specific and general variables to template" do
+  test "should pass general variables to template" do
     publication_exists('slug' => 'c-slug', 'type' => 'answer', 'name' => 'THIS')
     content_api_has_an_artefact("c-slug")
 
@@ -207,7 +207,6 @@ class RootControllerTest < ActionController::TestCase
     @controller.stubs(:render).with("answer")
     get :slug => "c-slug"
     assert_equal "THIS", @controller.publication.name
-    assert_equal "THIS", @controller.answer.name
   end
 
   test "Should redirect to transaction if no geo header" do

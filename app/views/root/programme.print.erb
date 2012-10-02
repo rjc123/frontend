@@ -1,13 +1,13 @@
 <section id="content" role="main" class="group">
   <header class="page-header group">
     <hgroup>
-      <h1><span>Benefits &amp; credits</span> <%= programme.title %></h1>
+      <h1><span>Benefits &amp; credits</span> <%= publication.title %></h1>
     </hgroup>
   </header>
 
   <div class="article-container group">
-    <% programme.parts.each do |part| %>
-      <% if programme.has_next_part?(part) %>
+    <% publication.parts.each do |part| %>
+      <% if publication.has_next_part?(part) %>
         <article role="article" class="overview-etc group" id="<%= part.slug %>">
           <div class="inner">
             <%= render partial: "programme_part", locals: {part: part}, formats: ["html"] %>
@@ -18,7 +18,7 @@
 
     <article role="article" class="group">
       <div class="inner">
-        <%= render partial: "programme_part", locals: {part: programme.parts.last}, formats: ["html"] %>
+        <%= render partial: "programme_part", locals: {part: publication.parts.last}, formats: ["html"] %>
       </div>
     </article>
   </div>

@@ -239,20 +239,12 @@ module RootController
   end
 
   class Publication < Action
-    expose(:local_transaction)
     expose(:artefact)
     expose(:edition)
     expose(:publication)
     expose(:not_found)
     expose(:licence_details)
-    expose(:licence)
-    expose(:answer)
-    expose(:guide)
     expose(:part)
-    expose(:programme)
-    expose(:transaction)
-    expose(:video)
-    expose(:completed_transaction)
 
     def call
       error_406 and return if request.format.nil?
@@ -307,8 +299,6 @@ module RootController
       end
 
       @edition = params[:edition]
-
-      instance_variable_set("@#{@publication.type}".to_sym, @publication)
 
       respond_to do |format|
         format.html do
