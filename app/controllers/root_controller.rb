@@ -250,6 +250,9 @@ module RootController
     expose(:guide)
     expose(:part)
     expose(:programme)
+    expose(:transaction)
+    expose(:video)
+    expose(:completed_transaction)
 
     def call
       error_406 and return if request.format.nil?

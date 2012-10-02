@@ -9,16 +9,18 @@ Frontend::Application.routes.draw do
   match "/help/feedback" => redirect("/feedback") # Handled by feedback app
   match "/help(/:action)", :to => "help"
 
-  match "/settings", :to => "root#settings"
-  match "/tour", :to => "root#tour"
-  match "/identify_council/:slug", :as => "identify_council", :to => "root#identify_council"
-  match "/places/load_places/:slug", :as => "load_places", :to => "root#load_places"
+  focused_controller_routes do
+    match "/settings", :to => "root#settings"
+    match "/tour", :to => "root#tour"
+    match "/identify_council/:slug", :as => "identify_council", :to => "root#identify_council"
+    match "/places/load_places/:slug", :as => "load_places", :to => "root#load_places"
 
-  with_options(:as => "publication", :to => "root#publication") do |pub|
-    pub.match ":slug/video", :format => :video
-    pub.match ":slug/print", :format => :print
-    pub.match ":slug/:part/:interaction", :as => :licence_authority_action
-    pub.match ":slug(/:part)"
+    with_options(:as => "publication", :to => "root#publication") do |pub|
+      pub.match ":slug/video", :format => :video
+      pub.match ":slug/print", :format => :print
+      pub.match ":slug/:part/:interaction", :as => :licence_authority_action
+      pub.match ":slug(/:part)"
+    end
   end
 
   root :to => 'root#index'
