@@ -1,6 +1,10 @@
 require 'test_helper'
+require 'focused_controller/functional_test_helper'
 
 class RootControllerTest < ActionController::TestCase
+  include FocusedController::FunctionalTestHelper
+
+  self.controller_class = RootController::Publication
 
   def setup_this_answer
     publication_exists(
@@ -37,7 +41,7 @@ class RootControllerTest < ActionController::TestCase
       "type" => "guide"
     )
     content_api_has_an_artefact("disability-living-allowance-guide")
-    get :publication, :slug => "disability-living-allowance-guide"
+    get :slug => "disability-living-allowance-guide"
     assert_equal '404', response.code
   end
 
@@ -46,21 +50,21 @@ class RootControllerTest < ActionController::TestCase
     content_api_has_an_artefact("a-slug")
     prevent_implicit_rendering
     @controller.expects(:render).with(has_entry(:status=>404))
-    get :publication, :slug => "a-slug"
+    get :slug => "a-slug"
   end
 
   test "should 406 when asked for unrecognised format" do
     publication_exists('slug' => 'a-slug', 'type' => 'answer')
     content_api_has_an_artefact("a-slug")
 
-    get :publication, :slug => 'a-slug', :format => '123'
+    get :slug => 'a-slug', :format => '123'
     assert_equal '406', response.code
   end
 
   test "should return a 404 if slug isn't URL friendly" do
     prevent_implicit_rendering
     @controller.expects(:render).with(has_entry(:status => 404))
-    get :publication, :slug => "a complicated slug & one that's not \"url safe\""
+    get :slug => "a complicated slug & one that's not \"url safe\""
   end
 
   test "should choose template based on type of publication" do
@@ -68,7 +72,7 @@ class RootControllerTest < ActionController::TestCase
     content_api_has_an_artefact("a-slug")
     prevent_implicit_rendering
     @controller.expects(:render).with("answer")
-    get :publication, :slug => "a-slug"
+    get :slug => "a-slug"
   end
 
   test "further information tab should appear for programmes that have it" do
@@ -77,7 +81,7 @@ class RootControllerTest < ActionController::TestCase
         {'slug' => 'further-information', 'name' => 'BB'}
       ])
     content_api_has_an_artefact("zippy")
-    get :publication, :slug => "zippy"
+    get :slug => "zippy"
     assert @response.body.include? "further-information"
   end
 
@@ -87,7 +91,7 @@ class RootControllerTest < ActionController::TestCase
         {'slug' => 'b', 'name' => 'BB'}
       ])
     content_api_has_an_artefact("george")
-    get :publication, :slug => "george"
+    get :slug => "george"
     assert !@response.body.include?("further-information")
   end
 
@@ -99,7 +103,7 @@ class RootControllerTest < ActionController::TestCase
 
     prevent_implicit_rendering
     @controller.stubs(:render)
-    get :publication, :slug => "c-slug", :edition => edition_id
+    get :slug => "c-slug", :edition => edition_id
   end
 
   test "should return video view when asked if guide has video" do
@@ -109,7 +113,7 @@ class RootControllerTest < ActionController::TestCase
 
     prevent_implicit_rendering
     @controller.expects(:render).with("guide", layout: "application.html.erb")
-    get :publication, :slug => "a-slug", :format => "video"
+    get :slug => "a-slug", :format => "video"
     assert_equal "video", @request.format
   end
 
@@ -118,8 +122,8 @@ class RootControllerTest < ActionController::TestCase
         {'title' => 'Part 1', 'slug' => 'part-1', 'body' => 'Part 1 I am'}])
     content_api_has_an_artefact("a-slug")
 
-    get :publication, :slug => "a-slug"
-    get :publication, :slug => "a-slug", :format => "video"
+    get :slug => "a-slug"
+    get :slug => "a-slug", :format => "video"
   end
 
   test "should return print view" do
@@ -132,7 +136,7 @@ class RootControllerTest < ActionController::TestCase
 
     prevent_implicit_rendering
     @controller.expects(:render).with("guide")
-    get :publication, :slug => "a-slug", :format => "print"
+    get :slug => "a-slug", :format => "print"
     # assert_template 'guide'
     assert_equal "print", @request.format
   end
@@ -143,7 +147,7 @@ class RootControllerTest < ActionController::TestCase
 
     prevent_implicit_rendering
     @controller.expects(:render).with(has_entry(:status => 404))
-    get :publication, :slug => "a-slug", :format => "video"
+    get :slug => "a-slug", :format => "video"
   end
 
   test "should return 404 if part requested but publication has no parts" do
@@ -152,14 +156,14 @@ class RootControllerTest < ActionController::TestCase
 
     prevent_implicit_rendering
     @controller.expects(:render).with(has_entry(:status => 404))
-    get :publication, :slug => "a-slug", :part => "information"
+    get :slug => "a-slug", :part => "information"
   end
 
   test "should 404 if bad part requested of multi-part guide" do
     publication_exists('slug' => 'a-slug', 'type' => 'guide', 'parts' => [{'title' => 'first', 'slug' => 'first'}])
     content_api_has_an_artefact("a-slug")
     prevent_implicit_rendering
-    get :publication, :slug => "a-slug", :part => "information"
+    get :slug => "a-slug", :part => "information"
     assert_response :not_found
   end
 
@@ -167,7 +171,7 @@ class RootControllerTest < ActionController::TestCase
     publication_exists('slug' => 'a-slug', 'type' => 'guide', 'parts' => [{'title' => 'first', 'slug' => 'first'}])
     content_api_has_an_artefact("a-slug")
     prevent_implicit_rendering
-    get :publication, slug: "a-slug", format: 'json'
+    get slug: "a-slug", format: 'json'
     assert_response :success
   end
 
@@ -178,7 +182,7 @@ class RootControllerTest < ActionController::TestCase
     content_api_has_an_artefact(slug)
 
     prevent_implicit_rendering
-    get :publication, :slug => "a-slug", :edition => edition_id
+    get :slug => "a-slug", :edition => edition_id
     assigns[:edition] = edition_id
   end
 
@@ -192,7 +196,7 @@ class RootControllerTest < ActionController::TestCase
 
      prevent_implicit_rendering
      @controller.stubs(:render)
-     get :publication, :slug => "a-slug",:edition => edition_id
+     get :slug => "a-slug",:edition => edition_id
   end
 
   test "should pass specific and general variables to template" do
@@ -201,9 +205,9 @@ class RootControllerTest < ActionController::TestCase
 
     prevent_implicit_rendering
     @controller.stubs(:render).with("answer")
-    get :publication, :slug => "c-slug"
-    assert_equal "THIS", assigns["publication"].name
-    assert_equal "THIS", assigns["answer"].name
+    get :slug => "c-slug"
+    assert_equal "THIS", @controller.publication.name
+    assert_equal "THIS", @controller.answer.name
   end
 
   test "Should redirect to transaction if no geo header" do
@@ -212,7 +216,7 @@ class RootControllerTest < ActionController::TestCase
 
     request.env.delete("HTTP_X_GOVGEO_STACK")
     no_council_for_slug('c-slug')
-    get :publication, :slug => "c-slug"
+    get :slug => "c-slug"
   end
 
   test "should join the slug and part when slug is 'done'" do
@@ -220,7 +224,7 @@ class RootControllerTest < ActionController::TestCase
     content_api_has_an_artefact("done/example")
 
     @controller.expects(:fetch_publication).with(has_entry('slug' => 'done/example'))
-    get :publication, :slug => "done", :part => "example"
+    get :slug => "done", :part => "example"
   end
 
   context "setting up slimmer artefact details" do
@@ -237,7 +241,7 @@ class RootControllerTest < ActionController::TestCase
 
       @controller.stubs(:render)
 
-      get :publication, :slug => "slug"
+      get :slug => "slug"
 
       assert_equal "guide", @response.headers["X-Slimmer-Format"]
     end
@@ -247,7 +251,7 @@ class RootControllerTest < ActionController::TestCase
       content_api_has_an_artefact("slug")
       @controller.stubs(:render)
 
-      get :publication, :slug => "slug"
+      get :slug => "slug"
 
       assert_equal JSON.dump(artefact_data), @response.headers["X-Slimmer-Artefact"]
     end
@@ -256,7 +260,7 @@ class RootControllerTest < ActionController::TestCase
       content_api_does_not_have_an_artefact("slug")
       @controller.stubs(:render)
 
-      get :publication, slug: "slug"
+      get slug: "slug"
       assert_equal "missing", @response.headers["X-Slimmer-Format"]
     end
   end
@@ -265,8 +269,8 @@ class RootControllerTest < ActionController::TestCase
     setup_this_answer
     prevent_implicit_rendering
     @controller.stubs(:render).with("answer")
-    get :publication, :slug => "c-slug", :part => "b"
-    assert_equal "BB", assigns["part"].name
+    get :slug => "c-slug", :part => "b"
+    assert_equal "BB", @controller.part.name
   end
 
   context "local transactions" do
@@ -283,7 +287,7 @@ class RootControllerTest < ActionController::TestCase
       snac = "00QP"
       setup_publisher_api(slug, snac)
 
-      post :publication, format: "json", slug: slug, council_ons_codes: [snac]
+      post format: "json", slug: slug, council_ons_codes: [snac]
 
       json = JSON.parse(response.body)
       assert_equal slug, json['slug']
@@ -297,7 +301,7 @@ class RootControllerTest < ActionController::TestCase
       snac = "00QP"
       setup_publisher_api(slug, snac)
 
-      post :publication, format: "json", slug: slug, council_ons_codes: [snac]
+      post format: "json", slug: slug, council_ons_codes: [snac]
 
       json = JSON.parse(response.body)
       assert_equal slug, json['slug']
@@ -309,7 +313,7 @@ class RootControllerTest < ActionController::TestCase
       snac = "00QP"
       setup_publisher_api(slug, snac)
 
-      post :publication, format: "json", slug: slug, council_ons_codes: [snac]
+      post format: "json", slug: slug, council_ons_codes: [snac]
 
       json = JSON.parse(response.body)
       assert_equal slug, json['slug']
@@ -323,7 +327,7 @@ class RootControllerTest < ActionController::TestCase
       snac = "00QP"
       setup_publisher_api(slug, snac)
 
-      post :publication, format: "json", slug: slug, council_ons_codes: [snac]
+      post format: "json", slug: slug, council_ons_codes: [snac]
 
       json = JSON.parse(response.body)
       assert_equal slug, json['slug']

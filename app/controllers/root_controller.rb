@@ -246,6 +246,10 @@ module RootController
     expose(:not_found)
     expose(:licence_details)
     expose(:licence)
+    expose(:answer)
+    expose(:guide)
+    expose(:part)
+    expose(:programme)
 
     def call
       error_406 and return if request.format.nil?
