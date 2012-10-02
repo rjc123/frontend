@@ -21,7 +21,7 @@ Frontend::Application.routes.draw do
       pub.match ":slug/:part/:interaction", :as => :licence_authority_action
       pub.match ":slug(/:part)"
     end
-  end
 
-  root :to => 'root#index'
+    root :to => 'root#index'
+  end
 end
