@@ -10,6 +10,7 @@ class SearchResult
     "animals-food-and-plants" => "Animals, food and plants",
     "mot" => "MOT",
     "mot-insurance" => "MOT insurance",
+    "blue-badge-parking" => "Blue Badge, parking, local travel",
     "Inside Government" => "Inside Government"
   }
 
