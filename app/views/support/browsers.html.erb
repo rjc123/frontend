@@ -1,0 +1,35 @@
+<% content_for :title, "Browser support - Support Pages - GOV.UK" %>
+
+<section id="content" role="main" class="group support-page">
+  <header class="page-header group">
+    <hgroup class="full-width">
+      <h1>Browser usage and support guidelines</h1>
+    </hgroup>
+  </header>
+
+
+  <div class="support-container full-width group">
+    <article role="article" class="group">
+      <div class="inner">
+      		<h2>Browser support</h2>
+       		<p>In practice, we test on any browsers with a greater than 2% usage share and users of those browsers can and should <a href="/support/broken-pages">report any problems with access or usage</a>.</p>
+
+          <h2>Current browser usage of GOV.UK (mainstream and Inside Government combined)</h2>
+
+          <h2>Current browser usage of Inside Government</h2>
+
+          <h2>Current browser usage of GOV.UK (mainstream only)
+
+
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<% content_for :body_classes do %>full-width<% end %>
+<% content_for :extra_stylesheets do %>
+  <%= stylesheet_link_tag 'support-styles' %>
+<% end %>
+
+<script src="http://d3js.org/d3.v2.js"></script>
