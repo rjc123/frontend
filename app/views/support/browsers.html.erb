@@ -11,11 +11,19 @@
   <div class="support-container full-width group">
     <article role="article" class="group">
       <div class="inner">
-      		<h2>Browser support</h2>
-       		<p>In practice, we test on any browsers with a greater than 2% usage share and users of those browsers can and should <a href="/support/broken-pages">report any problems with access or usage</a>.</p>
-
+      		<h2>Browser verification</h2>
+       		<p>Due to the wealth of browsers and devices available, we are only able to verify the site in a selection of browsers.  As such, we test on any browsers with a greater than 2% usage share and users of those browsers can and should <a href="/support/broken-pages">report any problems with access or usage</a>.</p>  
+       		<p>Browsers that are not verified by us are still likely to achieve a good experience within one of the levels below, depending on their technical capabilities.</p>
+       		
+       		<h3>What the levels of support mean</h3>
+       		<h4>Primary</h4>
+       		<p>The site MUST present all content correctly, and the visual design SHOULD not look "broken" (where broken would be jarring or cause obstruction to use).  JavaScript enhancements will be enabled.</p>
+       		<h4>Secondary</h4>
+       		<p>The site MUST present all content correctly, but the visual design does not need to look as good as those in the Top group where the overhead is deemed unreasonable in creation.  Javascript enhancements will not be enabled in all cases and suitable non-JS fallback features will be available instead.  Many mobile browsers will fall into this category.</p>
+       		<h4>Deprecating</h4>
+       		<p>No Javascript or CSS will be served to these browsers.  Content MUST be available as plain text, and interactive elements (such as forms) will be usable without JavaScript or other enhancements.</p>
           <h2>Current browser usage of GOV.UK (mainstream and Inside Government combined)</h2>
-
+          <div class="all-browsers"></div>
           <h2>Current browser usage of Inside Government</h2>
 
           <h2>Current browser usage of GOV.UK (mainstream only)
@@ -31,5 +39,17 @@
 <% content_for :extra_stylesheets do %>
   <%= stylesheet_link_tag 'support-styles' %>
 <% end %>
-
+<% content_for :extra_javascript do %>
+  <%= javascript_include_tag 'browser-stats.js', :defer => 'defer' %>
+<% end %>
+<style>
+.all-browsers div {
+	font: 10px sans-serif;
+	background-color: steelblue;
+	text-align: right;
+	padding: 3px;
+	margin: 1px;
+	color: white;
+}
+</style>
 <script src="http://d3js.org/d3.v2.js"></script>
