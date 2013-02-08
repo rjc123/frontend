@@ -1,0 +1,37 @@
+<section id="content" role="main" class="group">
+
+  <header class="page-header group">
+    <hgroup>
+      <h1><span><%= t 'formats.transaction.name' %></span>Test ePDQ Transaction</h1>
+    </hgroup>
+  </header>
+  <div class="article-container group">
+    <article role="article" class="group">
+      <div class="inner">
+        <section class="intro">
+          <%= form_tag "/epdq-test", :class => "jobsearch-form" do %>
+
+            <p class="group">
+              <label for="quantity">Number of documents
+                <input type="text" name="quantity" />
+              </label>
+            </p>
+            <p class="group">
+              <label for="postage_total">Postage Cost
+                <input type="text" name="postage_total" />
+              </label>
+            </p>
+
+            <p id="get-started" class="get-started group">
+              <button class="button" type="submit" >Proceed</button>
+            </p>
+          <% end %>
+        </section>
+      </div>
+    </article>
+
+
+  </div>
+
+</section>
+

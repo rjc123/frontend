@@ -38,6 +38,10 @@ Frontend::Application.routes.draw do
   # Jobssearch form override (English and Welsh variants)
   match "/:slug" => "root#jobsearch", :constraints => {:slug => /(jobsearch|chwilio-am-swydd)/}
 
+  get "/epdq-test" => "test#epdq"
+  post "/epdq-test" => "test#epdq_submit"
+  get "/epdq-test/done" => "test#done"
+
   with_options(as: "publication", to: "root#publication") do |pub|
     pub.match ":slug/video", format: :video
     pub.match ":slug/print", format: :print

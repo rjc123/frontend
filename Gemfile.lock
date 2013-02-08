@@ -15,6 +15,12 @@ GIT
     rails-i18n (0.7.1)
       i18n (~> 0.5)
 
+GIT
+  remote: https://github.com/newspaperclub/epdq.git
+  revision: 864b35340452208f010e2a546393beb074c7b50c
+  specs:
+    epdq (0.0.1)
+
 GEM
   remote: http://rubygems.org/
   remote: https://gems.gemfury.com/vo6ZrmjBQu5szyywDszE/
@@ -269,6 +275,7 @@ DEPENDENCIES
   cdn_helpers (= 0.9)
   ci_reporter
   coffee-rails (~> 3.2.1)
+  epdq!
   exception_notification
   gds-api-adapters (= 4.4.0)
   gds-warmup-controller

@@ -11,3 +11,4 @@ test/reports
 public/frontend
 .idea
 .sass-cache
+/config/initializers/fco_epdq.rb

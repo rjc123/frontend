@@ -1,0 +1,29 @@
+<section id="content" role="main" class="group">
+
+  <header class="page-header group">
+    <hgroup>
+      <h1><span><%= t 'formats.transaction.name' %></span>Test ePDQ Transaction</h1>
+    </hgroup>
+  </header>
+  <div class="article-container group">
+    <article role="article" class="group">
+      <div class="inner">
+        <section class="intro">
+          <%= form_tag @epdq_request.request_url do %>
+            <%- @epdq_request.form_attributes.each do |k, v| -%>
+              <%= hidden_field_tag k, v %>
+            <%- end -%>
+            Total: <%= @total %>
+
+            <%= submit_tag "Pay with a credit or debit card" %>
+          <% end %>
+        </section>
+      </div>
+    </article>
+
+
+  </div>
+
+</section>
+
+

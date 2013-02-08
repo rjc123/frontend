@@ -19,6 +19,8 @@ gem 'plek', '1.1.0'
 gem 'lograge', '~> 0.1.0'
 gem 'statsd-ruby', '1.0.0', :require => 'statsd'
 
+gem 'epdq', :git => "https://github.com/newspaperclub/epdq.git"
+
 if ENV['SLIMMER_DEV']
   gem 'slimmer', :path => '../slimmer'
 else
