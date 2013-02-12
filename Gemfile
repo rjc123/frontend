@@ -19,7 +19,7 @@ gem 'plek', '1.1.0'
 gem 'lograge', '~> 0.1.0'
 gem 'statsd-ruby', '1.0.0', :require => 'statsd'
 
-gem 'epdq', :git => "https://github.com/newspaperclub/epdq.git"
+gem 'epdq', :git => "https://github.com/alphagov/epdq.git", :branch => "fix_sha_mixed_case"
 
 if ENV['SLIMMER_DEV']
   gem 'slimmer', :path => '../slimmer'

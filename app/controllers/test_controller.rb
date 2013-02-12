@@ -14,5 +14,11 @@ class TestController < ApplicationController
   end
 
   def done
+    @epdq_response = EPDQ::Response.new(request.query_string)
+    if @epdq_response.valid_shasign?
+      @payment_id = @epdq_response.parameters[:payid]
+    else
+      @payment_id = "Invalid signature"
+    end
   end
 end
