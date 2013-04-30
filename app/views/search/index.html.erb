@@ -1,23 +1,31 @@
 <section id="content" role="main" class="group search ancillary">
   <%= render partial: 'form' %>
 
+
+  <div class="search-container group">
+    <% if @all_results.any? %>
+      <div id="all-results">
+        <% if @all_results.any? %>
+          <ul class="results-list internal-links">
+            <%= render collection: @all_results[0,1], partial: "result" %>
+          </ul>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
   <div id="search-results-tabs">
     <% if [(@mainstream_results + @recommended_link_results), @detailed_guidance_results, @government_results].reject(&:blank?).count > 1 %>
       <nav class="js-tabs nav-tabs" role="navigation">
         <ul id="search-index-navigation">
-          <% if (@mainstream_results + @recommended_link_results).any? %>
+          <% if (@mainstream_results + @recommended_link_results + @detailed_guidance_results).any? %>
             <li>
-              <a href="#mainstream-results">General results (<%= @mainstream_results.length %>)</a>
-            </li>
-          <% end %>
-          <% if @detailed_guidance_results.any? %>
-            <li>
-              <a href="#detailed-results">Detailed guidance (<%= @detailed_guidance_results.length %>)</a>
+              <a href="#mainstream-results"><span class="counter"><%= (@mainstream_results + @detailed_guidance_results).length %></span> Services, information <br>and guidance</a>
             </li>
           <% end %>
           <% if @government_results.any? %>
             <li>
-              <a href="#government-results">Inside Government (<%= @government_results.length %>)</a>
+              <a href="#government-results"><span class="counter"><%= @government_results.length %></span> Policies, departments <br>and announcements</a>
             </li>
           <% end %>
         </ul>
@@ -27,6 +35,11 @@
     <div class="search-container group js-tab-content tab-content">
       <% if @mainstream_results.any? or @recommended_link_results.any? %>
         <div id="mainstream-results" class="js-tab-pane tab-pane <%= (@mainstream_results + @recommended_link_results).length == 1 ? ' single-item-pane' : ''%>">
+          <% if @mainstream_results.any? %>
+            <ul class="results-list internal-links">
+              <%= render collection: @mainstream_results[0,3], partial: "result" %>
+            </ul>
+          <% end %>
           <% if @recommended_link_results.any? %>
             <div class="recommended-links">
               <h2>Other sites that may be useful</h2>
@@ -37,23 +50,16 @@
           <% end %>
           <% if @mainstream_results.any? %>
             <ul class="results-list internal-links">
-              <%= render collection: @mainstream_results, partial: "result" %>
+              <%= render collection: @mainstream_results[4, 50], partial: "result" %>
+              <%= render collection: @detailed_guidance_results, partial: "result" %>
             </ul>
           <% end %>
         </div>
       <% end %>
 
-      <% if @detailed_guidance_results.any? %>
-        <div id="detailed-results" class="js-tab-pane tab-pane">
-          <ul>
-            <%= render collection: @detailed_guidance_results, partial: "result" %>
-          </ul>
-        </div>
-      <% end %>
-
       <% if @government_results.any? %>
         <div id="government-results" class="js-tab-pane tab-pane">
-          <ul>
+          <ul class="results-list">
             <%= render collection: @government_results, partial: "result" %>
           </ul>
         </div>

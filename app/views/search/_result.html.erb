@@ -1,11 +1,9 @@
 <% if result.format == "recommended-link" %>
-  <li class="type-guide external">
+  <li class="result type-guide external">
 <% else %>
-  <li class="section-<%= result.section %> type-<%= result.format %>">
+  <li class="result section-<%= result.section %> type-<%= result.format %>">
 <% end %>
   <p class="search-result-title"><a href="<%= result.link %>" title="View <%= result.title %>"<% if result.format == "recommended-link" %> rel="external"<% end %>><%= result.title %></a></p>
-  <p><%= result.description %></p>
-
   <% if result.format == "recommended-link" %>
     <ul class="result-meta">
       <li><%= truncate(result.link, :length => 48) %></li>
@@ -23,4 +21,5 @@
       </li>
     </ul>
   <% end %>
+  <p><%= result.description %></p>
 </li>

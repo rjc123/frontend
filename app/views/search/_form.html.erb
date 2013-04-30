@@ -7,13 +7,11 @@
     <legend class="visuallyhidden">Search gov.uk</legend>
 
     <label for="search-main">
-      <h1>
-        <%- if @count_results && @count_results.any? -%>
-          <%= pluralize(@count_results.length, "result", "results") %> for
-        <%- else -%>
-          What are you looking for?
-        <%- end -%>
-      </h1>
+      <%- if @count_results && @count_results.any? -%>
+        <h1 class="visuallyhidden">Search results for</h1>
+      <%- else -%>
+        <h1>What are you looking for?</h1>
+      <%- end -%>
     </label>
 
     <input type="search" name="q" value="<%= @search_term %>" id="search-main" /> <button type="submit" class="button">Search</button>
