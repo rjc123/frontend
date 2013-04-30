@@ -19,10 +19,18 @@ class SearchController < ApplicationController
       @mainstream_results = mainstream_results
       @recommended_link_results = grouped_mainstream_results[:recommended_link]
       @detailed_guidance_results = retrieve_detailed_guidance_results(@search_term)
-      @government_results = retrieve_government_results(@search_term)
+      @government_response = retrieve_government_results(@search_term)
+      @government_results = @government_response["results"]
+      @government_result_count = @government_response["total"]
 
-      @all_results = @mainstream_results + @detailed_guidance_results + @government_results + @recommended_link_results
-      @count_results = @mainstream_results + @detailed_guidance_results + @government_results
+      @information_and_services_results = @mainstream_results + @detailed_guidance_results["results"]
+      @information_and_services_result_count = retrieve_mainstream_results(@search_term)["total"] + @detailed_guidance_results["total"]
+      @information_and_services_results.sort! {|x,y| y.result["es_score"] <=> x.result["es_score"] }
+
+      @all_results = @information_and_services_results + @government_results + @recommended_link_results
+      @all_results.sort! {|x,y| y.result["es_score"] <=> x.result["es_score"] }
+
+      @count_results = @information_and_services_results + @government_results
     end
 
     fill_in_slimmer_headers(@all_results)
@@ -36,7 +44,7 @@ class SearchController < ApplicationController
 
   def grouped_mainstream_results
     @_grouped_mainstream_results ||= begin
-      results = retrieve_mainstream_results(@search_term)
+      results = retrieve_mainstream_results(@search_term)["results"]
       grouped_results = results.group_by do |result|
         if !result.respond_to?(:format)
           :everything_else
@@ -63,17 +71,20 @@ class SearchController < ApplicationController
 
   def retrieve_mainstream_results(term)
     res = Frontend.mainstream_search_client.search(term)
-    res.map { |r| SearchResult.new(r) }
+    res["results"] = res["results"].map { |r| SearchResult.new(r) }
+    res
   end
 
   def retrieve_detailed_guidance_results(term)
     res = Frontend.detailed_guidance_search_client.search(term)
-    res.map { |r| SearchResult.new(r) }
+    res["results"] = res["results"].map { |r| SearchResult.new(r) }
+    res
   end
 
   def retrieve_government_results(term)
     res = Frontend.government_search_client.search(term)
-    res.map { |r| GovernmentResult.new(r) }
+    res["results"] = res["results"].map { |r| SearchResult.new(r) }
+    res
   end
 
   def fill_in_slimmer_headers(result_set)
