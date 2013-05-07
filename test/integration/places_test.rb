@@ -121,6 +121,8 @@ class PlacesTest < ActionDispatch::IntegrationTest
 
           assert page.has_content?("Monday to Saturday 8.00am - 6.00pm.")
           assert page.has_content?("The London Passport Office is fully accessible to wheelchair users.")
+          
+          assert page.has_link?("View on Bing Maps", :href => "http://bing.com/maps/default.aspx?cp=51.49338734529598~-0.14411606838362725&lvl=16&sp=point.51.49338734529598_-0.14411606838362725_89%20Eccleston%20Square")
         end
       end
     end
