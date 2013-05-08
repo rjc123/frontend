@@ -16,24 +16,61 @@ class SearchController < ApplicationController
     end
 
     if @search_term.present?
-      @mainstream_results = mainstream_results
-      @recommended_link_results = grouped_mainstream_results[:recommended_link]
-      @detailed_guidance_results = retrieve_detailed_guidance_results(@search_term)
-      @government_results = retrieve_government_results(@search_term)
+      @streams = []
 
-      @all_results = @mainstream_results + @detailed_guidance_results + @government_results + @recommended_link_results
-      @count_results = @mainstream_results + @detailed_guidance_results + @government_results
-      if params[:top_result].present?
-        @top_result = @all_results.max_by(&:es_score)
-        [@mainstream_results, @detailed_guidance_results, @government_results, @recommended_link_results].each do |result_array|
-          result_array.delete(@top_result)
-        end
+      recommended_link_results = grouped_mainstream_results[:recommended_link]
+
+      if params[:combine].present?
+        detailed_results = retrieve_detailed_guidance_results(@search_term)
+        @streams << SearchStream.new(
+          "services-information",
+          "Services, information and guidance",
+          merge(mainstream_results, detailed_results),
+          recommended_link_results
+        )
+        @streams << SearchStream.new(
+          "government",
+          "Policies, departments and announcements",
+          retrieve_government_results(@search_term)
+        )
+      else
+        @streams << SearchStream.new(
+          "mainstream",
+          "General results",
+          mainstream_results,
+          recommended_link_results
+        )
+        @streams << SearchStream.new(
+          "detailed",
+          "Detailed guidance",
+          retrieve_detailed_guidance_results(@search_term)
+        )
+        @streams << SearchStream.new(
+          "government",
+          "Inside Government",
+          retrieve_government_results(@search_term)
+        )
       end
+
+      @result_count = @streams.map { |s| s.results.size }.sum
+
+      if params[:top_result].present?
+        # Pull out the best (first) result from across all the streams.
+        #
+        # We need to explicitly exclude empty streams, because streams with
+        # only recommended results in them will still be in the list.
+        non_empty_streams = @streams.reject { |s| s.results.empty? }
+        best_stream = non_empty_streams.max_by { |s| s.results.first.es_score }
+        @top_result = best_stream.results.shift if best_stream
+      end
+
+      # Don't display any streams (tabs) that are now empty
+      @streams.select! { |stream| stream.total_size > 0 }
     end
 
-    fill_in_slimmer_headers(@all_results)
+    fill_in_slimmer_headers(@result_count)
 
-    if @all_results.empty?
+    if @result_count == 0
       render action: 'no_results' and return
     end
   end
@@ -82,9 +119,9 @@ class SearchController < ApplicationController
     res.map { |r| GovernmentResult.new(r) }
   end
 
-  def fill_in_slimmer_headers(result_set)
+  def fill_in_slimmer_headers(result_count)
     set_slimmer_headers(
-      result_count: result_set.length,
+      result_count: result_count,
       format:       "search",
       section:      "search",
       proposition:  "citizen"

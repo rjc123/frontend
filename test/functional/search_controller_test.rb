@@ -208,8 +208,9 @@ class SearchControllerTest < ActionController::TestCase
 
     get :index, q: "Test"
 
-    assert_equal 45, assigns[:mainstream_results].length
-    assert_equal 20, assigns[:recommended_link_results].length
+    mainstream = assigns[:streams].find { |s| s.key == "mainstream" }
+    assert_equal 45, mainstream.results.length
+    assert_equal 20, mainstream.recommended.length
   end
 
   test "should_show_external_links_with_a_separate_list_class" do

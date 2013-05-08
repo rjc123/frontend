@@ -9,8 +9,8 @@
 
     <label for="search-main">
       <h1>
-        <%- if @count_results && @count_results.any? -%>
-          <%= pluralize(@count_results.length, "result", "results") %> for
+        <%- if @search_term.present? -%>
+          <%= pluralize(@result_count, "result", "results") %> for
         <%- else -%>
           What are you looking for?
         <%- end -%>
