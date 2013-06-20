@@ -8,7 +8,38 @@
   <div class="article-container group">
       <article role="article" class="group">
        <div class="inner">
-         <%= raw @publication.body %>
+         <% # =raw @publication.body %>     
+         <form class="survey" method="post">
+          <fieldset>
+          <legend><span>Overall, how did you feel about the service you received today?</span></legend>
+          
+          <p class="option group">
+
+          <label for="happy">
+            <input id="happy" type="radio" name="happiness"> 
+            Happy
+          </label>
+
+          <label for="impartial">
+            <input id="impartial" type="radio" name="happiness"> 
+            Impartial
+          </label>
+
+          <label for="unhappy">
+            <input id="unhappy" type="radio" name="happiness"> 
+            Unhappy
+          </label>
+
+          </p>
+          </fieldset>
+
+          <legend><span>How could we improve this service?</span></legend>
+
+          <textarea rows="5"></textarea>
+          <p class="hint" aria-live="polite" aria-atomic="false">Please don't include any personal or financial information, for example your National Insurance or credit card numbers.</p>
+          <button name="feedback" type="submit" class="button medium">Send feedback</button>
+
+         </form>
        </div>
      </article>
     <%= render 'publication_metadata', :publication => @publication, :api_links => { 'application/json' => publication_api_path(@publication, :edition => @edition) } %>
