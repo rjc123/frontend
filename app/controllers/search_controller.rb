@@ -26,12 +26,16 @@ class SearchController < ApplicationController
         unfiltered_government_results = government_results
       end
 
+      if feature_enabled?("spelling_suggestion")
+        if raw_mainstream_results(@search_term)["spelling_suggestions"]
+          @spelling_suggestion = raw_mainstream_results(@search_term)["spelling_suggestions"].first
+        end
+      end
+
       detailed_results = retrieve_detailed_guidance_results(@search_term)
       # hackily downweight detailed results to prevent them swamping mainstream results
-      adjusted_detailed_results = detailed_results.map do |detailed_result|
-        detailed_result.result["es_score"] = detailed_result.result["es_score"] * 0.8
-        detailed_result
-      end
+      adjusted_detailed_results = multiply_result_scores(detailed_results, 0.8)
+
       @streams << SearchStream.new(
         "services-information",
         "Services and information",
@@ -49,7 +53,8 @@ class SearchController < ApplicationController
       @result_count = @streams.map { |s| s.total_size }.sum
 
       top_result_sets = @streams.reject { |s| s.key == "government" }.map(&:results)
-      top_result_sets << unfiltered_government_results
+      # Hackily downweight government results to stop them from swamping mainstream in top results
+      top_result_sets << multiply_result_scores(unfiltered_government_results, 0.6)
 
       all_results_ordered = merge_result_sets(*top_result_sets)
       @top_results = all_results_ordered[0..2]
@@ -98,10 +103,17 @@ class SearchController < ApplicationController
     grouped_mainstream_results[:everything_else]
   end
 
+  def raw_mainstream_results(term)
+    @_raw_mainstream_results ||= begin
+      Frontend.mainstream_search_client.search(term, extra_search_parameters)
+    end
+  end
+
   def retrieve_mainstream_results(term)
-    res = Frontend.mainstream_search_client.search(term, extra_search_parameters)
+    res = raw_mainstream_results(term)
     res["results"].map { |r| SearchResult.new(r) }
   end
+
 
   def retrieve_detailed_guidance_results(term)
     res = Frontend.detailed_guidance_search_client.search(term, extra_search_parameters)
@@ -178,5 +190,12 @@ class SearchController < ApplicationController
     organisations.reject do |organisation|
       organisation["organisation_type"] == MINISTERIAL_DEPARTMENT_TYPE
     end.sort_by { |organisation| organisation["title"] }
+  end
+
+  def multiply_result_scores(result_set, multiply_by)
+    result_set.map do |result|
+      result.result["es_score"] = result.result["es_score"] * multiply_by
+      result
+    end
   end
 end

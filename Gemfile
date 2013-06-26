@@ -21,7 +21,7 @@ gem 'htmlentities', '4.3.1'
 if ENV['SLIMMER_DEV']
   gem 'slimmer', :path => '../slimmer'
 else
-  gem 'slimmer', '3.16.0'
+  gem 'slimmer', '3.17.0'
 end
 
 if ENV['CDN_DEV']
@@ -43,7 +43,6 @@ group :assets do
   gem 'govuk_frontend_toolkit', '0.20.0'
   gem 'sass', "3.2.1"
   gem 'sass-rails', "  ~> 3.2.3"
-  gem 'coffee-rails', "~> 3.2.1"
   gem "therubyracer", "~> 0.9.4"
   gem 'uglifier'
 end
@@ -59,8 +58,8 @@ group :test do
   gem 'simplecov-rcov'
   gem 'ci_reporter'
   gem 'test-unit'
-  gem 'capybara', '2.0.2'
-  gem 'poltergeist', '1.1.0'
+  gem 'capybara', '2.1.0'
+  gem 'poltergeist', '1.3.0'
   gem "launchy"
   gem "shoulda"
 end

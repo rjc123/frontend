@@ -12,11 +12,19 @@ class SearchControllerTest < ActionController::TestCase
     }
   end
 
-  def stub_results(index_name, search_results = [])
+  # spelling_suggestions - an array of string spelling suggestions.
+  #                        Defaults to empty list.
+  #                        Explicitly passing "nil" means they key is excluded,
+  #                        Which allows testing against Rummager before the
+  #                        feature was added.
+  def stub_results(index_name, search_results = [], spelling_suggestions = [])
     response_body = {
       "total" => search_results.size,
       "results" => search_results
     }
+    unless spelling_suggestions.nil?
+      response_body["spelling_suggestions"] = spelling_suggestions
+    end
     client = stub("search #{index_name}", search: response_body)
     Frontend.stubs(:"#{index_name}_search_client").returns(client)
   end
@@ -65,16 +73,16 @@ class SearchControllerTest < ActionController::TestCase
   end
 
   test "should display multiple results without class name for single result set" do
-    stub_results("mainstream", [{}, {}, {}])
+    stub_results("mainstream", [a_search_result("a"), a_search_result("b")])
     get :index, q: "search-term"
     assert_select "div#services-information-results.single-item-pane", 0
   end
 
   test "should display tabs when there are results in one or more tab" do
-    stub_results("mainstream", [{}, {}, {}])
-    stub_results("government", [{}])
+    stub_results("mainstream", [a_search_result("a")])
+    stub_results("government", [a_search_result("b")])
     get :index, q: "search-term"
-    assert_select "nav.js-tabs"
+    assert_select "div.js-tabs"
   end
 
   test "should display no tabs when there are no results" do
@@ -84,9 +92,9 @@ class SearchControllerTest < ActionController::TestCase
 
   context "one tab has results, the others do not" do
     should "display the 'no results' html in the tabs without results" do
-      stub_results("government", [{}])
+      stub_results("government", [a_search_result("a")])
       get :index, q: "search-term"
-      assert_select "nav.js-tabs"
+      assert_select "div.js-tabs"
       assert_select "#services-information-results .no-results", /0 results in Services and information/
     end
   end
@@ -273,6 +281,28 @@ class SearchControllerTest < ActionController::TestCase
     assert_response 503
   end
 
+  context "?spelling_suggestion=1" do
+    context "spelling suggestions NOT returned" do
+      should "not display a spelling suggestion link" do
+        # temporary backwards compatibility with pre-suggestive rummager
+        stub_results("mainstream", [], nil)
+        get :index, { q: "afgananinanistan", spelling_suggestion: "1" }
+
+        assert_response :ok
+        assert_select ".spelling-suggestion", count: 0
+      end
+    end
+
+    context "spelling suggestions returned" do
+      should "display a link to the first suggestion from mainstream" do
+        stub_results("mainstream", [], ["afghanistan"])
+        get :index, { q: "afgananinanistan", spelling_suggestion: "1" }
+
+        assert_select ".spelling-suggestion a", 'afghanistan'
+      end
+    end
+  end
+
   context "organisation filter" do
     setup do
       # Need to have some results for the tab to appear
@@ -325,6 +355,7 @@ class SearchControllerTest < ActionController::TestCase
           "acronym"           => "MOD",
           "organisation_type" => "Ministerial department",
           "slug"              => "ministry-of-defence"
+
         }] })
       get :index, { q: "moon", organisation: "ministry-of-defence" }
       assert_select "select#organisation-filter option[value=ministry-of-defence][selected=selected]"
@@ -343,7 +374,7 @@ class SearchControllerTest < ActionController::TestCase
         # TODO see if we can remove the stub from the context setup up a level
         stub_results("government", [])
         get :index, { q: "moon", organisation: "ministry-of-defence" }
-        assert_select "nav.js-tabs"
+        assert_select "div.js-tabs"
         assert_select "#government-results h3 a", count: 0
       end
     end
@@ -441,5 +472,14 @@ class SearchControllerTest < ActionController::TestCase
     get :index, { q: "tax" }
     assert_select 'li:first-child  h3 a[href=/mainstream]'
     assert_select 'li:nth-child(2) h3 a[href=/detailed]'
+  end
+
+  should "hackily downweight government results to allow mainstream/detailed results to rank better" do
+    stub_results("mainstream", [a_search_result("mainstream-a", 100), a_search_result("mainstream-b", 1)])
+    stub_results("government", [a_search_result("government", 101)])
+    get :index, { q: "tax" }
+    assert_select '#top-results li:first-child  h3 a[href=/mainstream-a]'
+    assert_select '#top-results li:nth-child(2) h3 a[href=/government]'
+    assert_select '#top-results li:nth-child(3) h3 a[href=/mainstream-b]'
   end
 end
