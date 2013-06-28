@@ -54,7 +54,8 @@ class SearchBuilder
       end
     end
 
-    Search.new(streams: streams,
+    Search.new(term: term,
+               streams: streams,
                top_results: top_results,
                spelling_suggestion: spelling_suggestion,
                result_count: result_count)
