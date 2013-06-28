@@ -15,22 +15,17 @@ class SearchController < ApplicationController
     if @search_term.blank?
       render action: 'no_search_term' and return
     else
-      search = SearchBuilder.new.for_term(@search_term, params[:organisation])
+      @search = SearchBuilder.new.for_term(@search_term, params[:organisation])
     end
 
-    @top_results = search.top_results
-    @streams = search.streams
+    fill_in_slimmer_headers(@search.result_count)
 
-    @spelling_suggestion = search.spelling_suggestion
-
-    fill_in_slimmer_headers(search.result_count)
-
-    @active_stream = active_stream(search.streams)
+    @active_stream = active_stream(@search.streams)
 
     # We want to show the tabs if there's a filter in place
     # because there might be results with the filter turned off, but you can't
     # do that if the filter-form/tabs aren't displayed
-    if (search.result_count == 0) && params[:organisation].blank?
+    if (@search.result_count == 0) && params[:organisation].blank?
       render action: 'no_results' and return
     end
   end

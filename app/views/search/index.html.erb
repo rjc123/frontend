@@ -4,11 +4,11 @@
 <section id="content" role="main" class="group search ancillary">
   <%= render partial: 'form' %>
 
-  <% if @top_results %>
+  <% if @search.top_results %>
     <div id="top-results">
       <h2 class="visuallyhidden">Top result</h2>
       <ul class="results-list">
-        <% @top_results.each_with_index do |top_result, index| %>
+        <% @search.top_results.each_with_index do |top_result, index| %>
         <%= render partial: "result", locals: { result: top_result } %>
         <% end %>
       </ul>
@@ -18,14 +18,14 @@
 
   <div id="search-results-tabs" class="shouty-tabs">
     <h2 class="visuallyhidden">All results</h2>
-    <% if @streams.count > 1 %>
+    <% if @search.streams.count > 1 %>
       <div class="search-navigation js-tabs">
-      <% if @streams.count == 2 %>
+      <% if @search.streams.count == 2 %>
         <ul id="search-index-navigation" class="two-tabs">
       <% else %>
         <ul id="search-index-navigation">
       <% end %>
-        <% @streams.each do |stream| %>
+        <% @search.streams.each do |stream| %>
           <li <% if @active_stream == stream %>class="active"<% end %>>
             <a href="#<%= stream.key %>-results">
               <%= stream.title.html_safe %>
@@ -37,7 +37,7 @@
     <% end %>
 
     <div class="search-container group js-tab-content tab-content ">
-      <% @streams.each do |stream| %>
+      <% @search.streams.each do |stream| %>
         <div id="<%= stream.key %>-results" class="js-tab-pane tab-pane <%= stream.total_size == 1 ? ' single-item-pane' : '' %>">
         <div class="filters">
           <% if stream.key == "government" %>
