@@ -87,7 +87,7 @@ class SearchControllerTest < ActionController::TestCase
 
   test "should display no tabs when there are no results" do
     get :index, q: "search-term"
-    assert_select "div.js-tabs", count: 0
+    assert_select "div.js-tabs", { count: 0 }, response.body
   end
 
   context "active tab" do
