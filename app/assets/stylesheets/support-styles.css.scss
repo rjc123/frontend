@@ -1,9 +1,4 @@
-
-
-/* Extend page header for wide format page */
-header.page-header hgroup { 
-  margin-right: 0; 
-}
+@import "_typography";
 
 .support-contents { 
   overflow: hidden;
@@ -34,6 +29,10 @@ header.page-header hgroup {
 
 .support-contents h2 { 
   margin-top: 0; 
+  margin-bottom: 0;
+  a{
+   text-decoration: none; 
+  }
 }
 
 .contact-us,
@@ -65,3 +64,26 @@ header.page-header hgroup {
   display: block;
   margin-bottom: 14px;
 }
+
+.report-a-problem {
+  border-top: 1px solid #dee0e2;
+  margin-top: 2em;
+}
+
+.support-form {
+  @include core-19;
+
+  textarea {
+    display: block;
+    background-color: #f9f9f9;
+    padding: 0.3em 0 0.1em 0.4em;
+    min-height: 10em;
+    width: 80%;
+    height: auto;
+    margin: 0.2em 0 1em 0;
+  } 
+}
+
+  .support-form label {
+      @include core-24;
+  }
