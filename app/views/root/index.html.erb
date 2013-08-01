@@ -190,12 +190,19 @@
 
       <section class="popular-content" aria-labelledby="more-on-govuk-label">
         <div class="inner-block floated-children">
-          <div class="single-column-heading">
-            <h2 id="more-on-govuk-label">More on GOV.UK</h2>
-          </div>
+            <article class="promo-image">
+              <div class="promo-content">
+                <h3 id="Users on govuk">Users on GOV.UK</h3>
+                <a href="/government/how-government-works"><%= image_tag 'homepage/homepage-analytics-slot.png', alt: 'How government works' %></a>
+                <p>
+                  <a href="/performance" >Explore more performance data</a>
+                </p>
+                
+              </div>
+            </article>
           <div class="most-active">
-            <div class="floated-inner-block">
-              <h3>Most active</h3>
+            <div class="floated-inner-block promo-content">
+              <h2 id="most-active-label">Most active</h2>
               <ul class="most-active-content">
                 <li><a href="/jobsearch">Universal Jobmatch job search</a></li>
                 <li><a href="/student-finance-register-login">Log in to student finance</a></li>
@@ -210,6 +217,10 @@
               </ul>
             </div>
           </div>
+
+<!--           <div class="single-column-heading">
+            <h2 id="more-on-govuk-label">More on GOV.UK</h2>
+          </div> -->
           <article class="promo-image">
             <div class="promo-content">
               <a href="/workplacepensions"><%= image_tag 'homepage/workplace-pensions.jpg', :alt => "Workplace pensions" %></a>
@@ -218,6 +229,8 @@
               <p><a href="/workplacepensions" aria-describedby="promo-label">Find out what it means for you</a></p>
             </div>
           </article>
+          
+          
         </div>
       </section>
     </div>
