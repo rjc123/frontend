@@ -13,12 +13,12 @@
   min-height: 35em;
 }
 
-.support-contents > * { 
+.support-contents div  { 
   display: block; 
 
   float: left;
   
-  margin-bottom: 1em;  
+  margin-bottom: 0;  
   margin-right: 2.5%; 
   width: 48.75%;
 }
@@ -35,19 +35,8 @@
   }
 }
 
-.contact-us,
-.top-issues,
-.page-contents { 
-  margin: 1em -1em 1.5em -1em; 
-  padding: 1em 1em 0.25em 1em;
-  
-  background-color: #f2f2f2; 
-}
-
-.contact-us h2,
-.top-issues h2,
-.page-contents h2 { 
-  margin-top: 0em; 
+.inner p {
+  padding-bottom: 1.5em;
 }
 
 .contact-us ul,
@@ -60,30 +49,21 @@
   text-align: left; 
 }
 
-.block-image {
-  display: block;
-  margin-bottom: 14px;
-}
-
 .report-a-problem {
   border-top: 1px solid #dee0e2;
   margin-top: 2em;
 }
 
 .support-form {
-  @include core-19;
 
-  textarea {
+  label, input {
+      @include core-24;
+  }
+
+  input {
     display: block;
-    background-color: #f9f9f9;
-    padding: 0.3em 0 0.1em 0.4em;
-    min-height: 10em;
-    width: 80%;
-    height: auto;
-    margin: 0.2em 0 1em 0;
+    margin: 5px 0 20px;
+    width: 400px;
   } 
 }
 
-  .support-form label {
-      @include core-24;
-  }
