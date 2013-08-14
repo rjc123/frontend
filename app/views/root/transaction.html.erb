@@ -17,23 +17,27 @@
         <p class="visuallyhidden"><a href="#what-you-need-to-know"><%= t 'formats.transaction.what_you_need_to_know' %></a></p>
 
         <ul style="list-style:none; margin-left:-1.25em; margin-top:1.5em; margin-bottom: 2.25em;">
-          <li style="font-size:16px;"><a href="#">Before you start</a></li>
-          <li style="font-size:16px;"><a href="#">What you need to know</a></li>
-          <li style="font-size:16px;"><a href="#">Cost</a></li>
-          <li style="font-size:16px;"><a href="#">Other ways of applying</a></li>
+          <li style="font-size:16px;"><a href="#before">Before you start</a></li>
+          <li style="font-size:16px;"><a href="#what-you-need-to-know">What you need to know</a></li>
+          <li style="font-size:16px;"><a href="#cost">Cost</a></li>
+          <li style="font-size:16px;"><a href="#other-ways-to-apply">Other ways to apply</a></li>
         </ul>
 
         <p id="get-started" class="get-started group">
+          <a href="https://motoring.direct.gov.uk/service/DvoConsumer.portal?_nfpb=true&amp;_pageLabel=PRN&amp;_nfls=false" rel="external" class="button" style="background-image:none; padding-right:0.75em;">Renew licence</a>
+            <span class="destination"> on driving licensing online</span>
+        </p>
+        <!-- <p id="get-started" class="get-started group">
           <a href="<%= @publication.link %>" rel="external" class="button" <% if presenter.open_in_new_window? %>target="_blank"<% end %>><%= t 'formats.transaction.start_now' %></a>
           <% if @publication.will_continue_on.present? %>
             <span class="destination"> <%= t 'formats.transaction.on' %> <%= @publication.will_continue_on %></span>
           <% end %>
-        </p>
+        </p> -->
         <div style="border-bottom:1px solid #ccc; margin-top:2em;"></div>
       </section>
 
       <section class="more">
-        <h2>Before you start</h2>
+        <h2 id="before">Before you start</h2>
         <p>To apply online, you’ll need to:</p>
         <ul>
         <li>have a valid UK passport issued within the last 5 years</li>
@@ -45,7 +49,7 @@
           <li>not be disqualified from driving</li>
         </ul>
 
-        <h2>What you need to know</h2>
+        <h2 id="what-you-need-to-know" style="margin-top:2em;">What you need to know</h2>
         <p>You can’t apply online if your name has changed or if you want to <a href="/become-lorry-bus-driver/licence-validity-and-renewals">renew a 5-year bus or lorry licence</a>.</p>
         
         <p>There’s a different service if you want to <a href="/renew-driving-licence-at-70">renew your licence if you’re 70 or over</a>.</p>
@@ -62,13 +66,53 @@
 
         <p class="visuallyhidden"><a href="<%= @publication.link %>" rel="external">Get started on <%= @publication.will_continue_on %></a></p>
 
-        <h2>Cost</h2>
-        <p>A typical application will cost:</p>
+        <h2 id="cost" style="margin-top:2em;">Cost</h2>
+        <p>Application costs may vary, but a typical application will cost:</p>
         <p style="font-size:48px; font-weight:bold; margin:0; padding:0;">&pound;20.00</p>
 
-        <h2>Other ways to apply</h2>
-        <p><a href="#">Applying at a Post Office</a><br />
-        <a href="#">Applying by post</a></p>
+        <h2 id="other-ways-to-apply" style="margin-top:2em;">Other ways to apply</h2>
+        <span style="font-size:20px; width:100%; display:inline-block;"><a href="" id="apply-at-post-office">Applying at a Post Office</a></span>
+        <div class="at-post-office" style="margin-bottom:5em;">
+<p>If you get a D798 renewal reminder form in the post, it will list the closest Post Offices where you can apply to renew your driving licence photo.</p>
+
+<p>You can also find your nearest suitable Post Office on the <a rel="external" href="http://www.postoffice.co.uk/counter-services/licences-vehicle-tax/dvla-photocard-renewal">Post Office website</a>  or call <strong>0845 722 3344</strong>.</p>
+
+<p>You can’t apply via the Post Office if your name has changed.</p>
+
+<p>You’ll need to take:</p>
+
+<ul>
+<li>completed renewal form D798</li>
+  <li>your photocard licence and paper counterpart if you have them</li>
+  <li>the fee of £20</li>
+</ul>
+<p>The Post Office will charge an extra £4.50 fee to process your application.</p>
+
+<p>Your driving licence should arrive within 3 weeks. It might take longer if your medical or personal details need to be checked.</p>
+
+<p>You can’t download a copy of form D798, but if you don’t get your renewal reminder you may still be able to renew your licence at selected Post Offices. You’ll need to have the photocard and paper counterpart of your current licence.</p>
+        </div>
+
+        <span style="font-size:20px; width:100%; display:inline-block;"><a href="" id="apply-by-post">Applying by post</a></span>
+        <div class="by-post" style="margin-bottom:5em;">
+<p>You’ll need to fill in the licence renewal form D798 and include:</p>
+
+<ul>
+<li>a new <a href="/photos-for-passports" title="Passport photo requirements">passport type photo</a> taken within the last month (don’t sign the back of the photo)</li>
+  <li>the photocard and paper counterpart of your current licence (if you’ve lost either you’ll have to tick the relevant box on the D798 form)</li>
+  <li>a cheque or postal order for £20, payable to <abbr title="Driver and Vehicle Licensing Agency">DVLA</abbr> (no fee is needed if you have a medical short period licence or you’re aged 70 or over)</li>
+</ul>
+<p>Send your application and fee (if needed) to <strong><abbr title="Driver and Vehicle Licensing Agency">DVLA</abbr>, Swansea, SA99 1DH.</strong></p>
+
+<p>If you’ve changed your name, you’ll also need to include <a href="/driving-licence-application-identity-documents">identity documents</a>.</p>
+
+<h3>If you don’t have the reminder form</h3>
+
+<p>If you don’t have the D798 reminder and want to apply by post, fill in form D1 ‘Application for a driving licence’, available from the <a rel="external" href="https://www.dvla.gov.uk/dvla/onlineservices/order_forms.aspx?ext=dg"><abbr title="Driver and Vehicle Licensing Agency">DVLA</abbr> form ordering service</a> and selected Post Offices.</p>
+
+<p>Your driving licence should arrive within 3 weeks. It might take longer if your medical or personal details need to be checked.</p>
+
+        </div>
       </section>
 
      </div>
@@ -79,3 +123,23 @@
 </main>
 
 <div id="related-items"></div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('.by-post').hide();
+    $('.at-post-office').hide();
+
+    $('#apply-at-post-office').click(function(e) {
+      e.stopPropagation();
+      $('.at-post-office').toggle();
+      return false;
+    });
+
+    $('#apply-by-post').click(function(e) {
+      e.stopPropagation();
+      $('.by-post').toggle();
+      return false;
+    });
+});
+</script>
+
