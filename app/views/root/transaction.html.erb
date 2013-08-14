@@ -16,7 +16,7 @@
         <div class="get-started-intro"><%= raw @publication.introduction %></div>
         <p class="visuallyhidden"><a href="#what-you-need-to-know"><%= t 'formats.transaction.what_you_need_to_know' %></a></p>
 
-        <ul style="list-style:none;">
+        <ul style="list-style:none; margin-left:-1.25em; margin-top:1.5em; margin-bottom: 3.25em;">
           <li style="font-size:16px;"><a href="#">Before you start</a></li>
           <li style="font-size:16px;"><a href="#">Key information</a></li>
           <li style="font-size:16px;"><a href="#">Cost</a></li>
@@ -32,7 +32,7 @@
       </section>
 
       <section class="more">
-        <h2>Before you start style=-</h2>
+        <h2>Before you start</h2>
         <!--<%- if presenter.multiple_more_information_sections? -%>
           <%= render :partial => 'transaction_additional_information_tabbed', :locals => {:transaction => @publication, :presenter => presenter } %>
         <%- else -%>
