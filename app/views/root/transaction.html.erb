@@ -15,6 +15,14 @@
       <section class="intro">
         <div class="get-started-intro"><%= raw @publication.introduction %></div>
         <p class="visuallyhidden"><a href="#what-you-need-to-know"><%= t 'formats.transaction.what_you_need_to_know' %></a></p>
+
+        <ul style="list-style:none;">
+          <li style="font-size:16px;"><a href="#">Before you start</a></li>
+          <li style="font-size:16px;"><a href="#">Key information</a></li>
+          <li style="font-size:16px;"><a href="#">Cost</a></li>
+          <li style="font-size:16px;"><a href="#">Other ways of applying</a></li>
+        </ul>
+
         <p id="get-started" class="get-started group">
           <a href="<%= @publication.link %>" rel="external" class="button" <% if presenter.open_in_new_window? %>target="_blank"<% end %>><%= t 'formats.transaction.start_now' %></a>
           <% if @publication.will_continue_on.present? %>
@@ -24,11 +32,12 @@
       </section>
 
       <section class="more">
-        <%- if presenter.multiple_more_information_sections? -%>
+        <h2>Before you start style=-</h2>
+        <!--<%- if presenter.multiple_more_information_sections? -%>
           <%= render :partial => 'transaction_additional_information_tabbed', :locals => {:transaction => @publication, :presenter => presenter } %>
         <%- else -%>
           <%= render :partial => 'transaction_additional_information_single', :locals => {:transaction => @publication, :presenter => presenter } %>
-        <%- end -%>
+        <%- end -%>-->
 
         <p class="visuallyhidden"><a href="<%= @publication.link %>" rel="external">Get started on <%= @publication.will_continue_on %></a></p>
       </section>
