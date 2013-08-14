@@ -16,9 +16,9 @@
         <div class="get-started-intro"><%= raw @publication.introduction %></div>
         <p class="visuallyhidden"><a href="#what-you-need-to-know"><%= t 'formats.transaction.what_you_need_to_know' %></a></p>
 
-        <ul style="list-style:none; margin-left:-1.25em; margin-top:1.5em; margin-bottom: 3.25em;">
+        <ul style="list-style:none; margin-left:-1.25em; margin-top:1.5em; margin-bottom: 2.25em;">
           <li style="font-size:16px;"><a href="#">Before you start</a></li>
-          <li style="font-size:16px;"><a href="#">Key information</a></li>
+          <li style="font-size:16px;"><a href="#">What you need to know</a></li>
           <li style="font-size:16px;"><a href="#">Cost</a></li>
           <li style="font-size:16px;"><a href="#">Other ways of applying</a></li>
         </ul>
@@ -29,10 +29,31 @@
             <span class="destination"> <%= t 'formats.transaction.on' %> <%= @publication.will_continue_on %></span>
           <% end %>
         </p>
+        <div style="border-bottom:1px solid #ccc; margin-top:2em;"></div>
       </section>
 
       <section class="more">
         <h2>Before you start</h2>
+        <p>To apply online, you’ll need to:</p>
+        <ul>
+        <li>have a valid UK passport issued within the last 5 years</li>
+          <li>be a resident of Great Britain</li>
+          <li>pay £20 by MasterCard, Visa, Electron, Maestro or Delta debit or credit card</li>
+          <li>provide addresses of where you’ve lived over the last 3 years</li>
+          <li>have your driving licence (if you don’t have your driving licence you must say why as part of your application)</li>
+          <li>have your National Insurance number</li>
+          <li>not be disqualified from driving</li>
+        </ul>
+
+        <h2>What you need to know</h2>
+        <p>You can’t apply online if your name has changed or if you want to <a href="/become-lorry-bus-driver/licence-validity-and-renewals">renew a 5-year bus or lorry licence</a>.</p>
+        
+        <p>There’s a different service if you want to <a href="/renew-driving-licence-at-70">renew your licence if you’re 70 or over</a>.</p>
+
+        <p><abbr title="Driver and Vehicle Licensing Agency">DVLA</abbr> will get the photo and signature for your new driving licence from your passport. If this isn’t possible, or you don’t want to use the photo on your passport, you won’t be able to renew your licence online.</p>
+
+        <p>You must renew a photocard licence every 10 years - you’ll receive a reminder before your current licence ends. Your new licence will be valid from the date your application is approved <strong>not</strong> from the expiry date of your current licence.</p>
+
         <!--<%- if presenter.multiple_more_information_sections? -%>
           <%= render :partial => 'transaction_additional_information_tabbed', :locals => {:transaction => @publication, :presenter => presenter } %>
         <%- else -%>
@@ -40,6 +61,14 @@
         <%- end -%>-->
 
         <p class="visuallyhidden"><a href="<%= @publication.link %>" rel="external">Get started on <%= @publication.will_continue_on %></a></p>
+
+        <h2>Cost</h2>
+        <p>A typical application will cost:</p>
+        <p style="font-size:48px; font-weight:bold; margin:0; padding:0;">&pound;20.00</p>
+
+        <h2>Other ways to apply</h2>
+        <p><a href="#">Applying at a Post Office</a><br />
+        <a href="#">Applying by post</a></p>
       </section>
 
      </div>
