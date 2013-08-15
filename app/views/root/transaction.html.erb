@@ -74,9 +74,11 @@
         <p style="font-size:48px; font-weight:bold; margin:0; padding:0;">&pound;20.00</p>
 
         <h2 id="other-ways-to-apply" style="margin-top:2em;">Other ways to apply</h2>
-        <span style="font-size:20px; width:100%; display:inline-block;"><a href="" id="apply-at-post-office">Applying at a Post Office</a></span>
-        <div class="at-post-office" style="margin-bottom:5em;">
-<p>If you get a D798 renewal reminder form in the post, it will list the closest Post Offices where you can apply to renew your driving licence photo.</p>
+
+
+        <details>
+          <summary role="button" style="color: #2e3191; font-size:20px; text-decoration:underline; outline:none; cursor:pointer;">Applying at a Post Office</summary>
+          <p>If you get a D798 renewal reminder form in the post, it will list the closest Post Offices where you can apply to renew your driving licence photo.</p>
 
 <p>You can also find your nearest suitable Post Office on the <a rel="external" href="http://www.postoffice.co.uk/counter-services/licences-vehicle-tax/dvla-photocard-renewal">Post Office website</a>  or call <strong>0845 722 3344</strong>.</p>
 
@@ -94,11 +96,11 @@
 <p>Your driving licence should arrive within 3 weeks. It might take longer if your medical or personal details need to be checked.</p>
 
 <p>You can’t download a copy of form D798, but if you don’t get your renewal reminder you may still be able to renew your licence at selected Post Offices. You’ll need to have the photocard and paper counterpart of your current licence.</p>
-        </div>
+        </details>
 
-        <span style="font-size:20px; width:100%; display:inline-block;"><a href="" id="apply-by-post">Applying by post</a></span>
-        <div class="by-post" style="margin-bottom:5em;">
-<p>You’ll need to fill in the licence renewal form D798 and include:</p>
+<details>
+        <summary role="button" style="color: #2e3191; font-size:20px; text-decoration:underline; outline:none; cursor:pointer;">Applying by post</summary>
+        <p>You’ll need to fill in the licence renewal form D798 and include:</p>
 
 <ul>
 <li>a new <a href="/photos-for-passports" title="Passport photo requirements">passport type photo</a> taken within the last month (don’t sign the back of the photo)</li>
@@ -114,10 +116,11 @@
 <p>If you don’t have the D798 reminder and want to apply by post, fill in form D1 ‘Application for a driving licence’, available from the <a rel="external" href="https://www.dvla.gov.uk/dvla/onlineservices/order_forms.aspx?ext=dg"><abbr title="Driver and Vehicle Licensing Agency">DVLA</abbr> form ordering service</a> and selected Post Offices.</p>
 
 <p>Your driving licence should arrive within 3 weeks. It might take longer if your medical or personal details need to be checked.</p>
+</details>
 
-        </div>
 
-        <p id="get-started" class="get-started group">
+
+        <p id="get-started" class="get-started group" style="margin-top:3em;">
           <a href="https://motoring.direct.gov.uk/service/DvoConsumer.portal?_nfpb=true&amp;_pageLabel=PRN&amp;_nfls=false" rel="external" class="button" style="background-image:none; padding-right:0.75em;">Renew licence</a>
             <span class="destination"> on driving licensing online</span>
         </p>
@@ -132,22 +135,5 @@
 
 <div id="related-items"></div>
 
-<script type="text/javascript">
-$(document).ready(function() {
-    $('.by-post').hide();
-    $('.at-post-office').hide();
 
-    $('#apply-at-post-office').click(function(e) {
-      e.stopPropagation();
-      $('.at-post-office').toggle();
-      return false;
-    });
-
-    $('#apply-by-post').click(function(e) {
-      e.stopPropagation();
-      $('.by-post').toggle();
-      return false;
-    });
-});
-</script>
 
