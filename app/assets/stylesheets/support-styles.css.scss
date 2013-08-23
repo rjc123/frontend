@@ -1,11 +1,16 @@
 @import "_typography";
 
-.support-contents { 
+/* Extend page header for wide format page */
+header.page-header div {
+  margin-right: 0;
+}
+
+.support-contents {
   overflow: hidden;
   *zoom: 1;
-  
+
   margin: 0;
-  padding: 0;  
+  padding: 0;
 }
 
 .support-container {
@@ -13,25 +18,25 @@
   min-height: 35em;
 }
 
-.support-contents div  { 
-  display: block; 
+.support-contents div  {
+  display: block;
 
   float: left;
-  
-  margin-bottom: 0;  
-  margin-right: 2.5%; 
+
+  margin-bottom: 0;
+  margin-right: 2.5%;
   width: 48.75%;
 }
 
-.support-contents > div:nth-child(2n) { 
-  margin-right: 0; 
+.support-contents > div:nth-child(2n) {
+  margin-right: 0;
 }
 
-.support-contents h2 { 
-  margin-top: 0; 
+.support-contents h2 {
+  margin-top: 0;
   margin-bottom: 0;
   a{
-   text-decoration: none; 
+   text-decoration: none;
   }
 }
 
@@ -41,12 +46,12 @@
 
 .contact-us ul,
 .top-issues ul,
-.page-contents ul{ 
-  padding-left: 3.5em; 
+.page-contents ul{
+  padding-left: 3.5em;
 }
 
-.report-a-problem-container div { 
-  text-align: left; 
+.report-a-problem-container div {
+  text-align: left;
 }
 
 .report-a-problem {
@@ -64,6 +69,6 @@
     display: block;
     margin: 5px 0 20px;
     width: 400px;
-  } 
+  }
 }
 

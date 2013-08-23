@@ -1,9 +1,9 @@
-<section id="content" role="main" class="group">
+<main id="content" role="main" class="group">
 
   <header class="page-header group">
-    <hgroup>
+    <div>
       <h1><span><%= t 'formats.answer.name' %></span> <%= @publication.title %></h1>
-    </hgroup>
+    </div>
     <a class="skip-to-related" href="#related"><%= t 'common.not_what_youre_looking_for' %> ↓</a>
   </header>
 	<div class="article-container group">
@@ -14,5 +14,5 @@
 	   </article>
     <%= render 'publication_metadata', :publication => @publication, :api_links => { 'application/json' => publication_api_path(@publication, :edition => @edition) } %>
 	</div>
-</section>
+</main>
 <div id="related-items"></div>

@@ -1,68 +1,65 @@
 <% content_for :title, "Support using GOV.UK - Support Pages - GOV.UK" %>
 
-  <section id="content" role="main" class="group support-page">
-    <header class="page-header group">
-      <div>
-        <h1>Help using GOV.UK</h1>
-      </div>
-    </header>
-
-
-    <div class="article-container group">
-      <article role="article" class="group">
-        <div class="inner">
-          <p>Find out about GOV.UK, including the use of cookies, accessibility of the site, the privacy policy and terms and conditions of use.</p>
-          <div class="support-contents">
-            <div>
-              <h2><a href="/support/about-govuk">About GOV.UK</a></h2>
-              <p>Information about the website and the team that built it</p>
-            </div>
-            <div>
-              <h2><a href="/support/cookies">Cookies</a></h2>
-              <p>How cookies are used on GOV.UK and each cookie’s purpose</p>
-            </div>
-            <div>
-              <h2><a href="/support/browsers">Browsers</a></h2>
-              <p>Information about browsers and how to upgrade yours</p>
-            </div>
-            <div>
-              <h2><a href="/support/privacy-policy">Privacy policy</a></h2>
-              <p>GOV.UK’s approach to users’ privacy</p>
-            </div>
-            <div>
-              <h2><a href="/support/accessibility">Accessibility</a></h2>
-              <p>Details of accessibility and help using the internet</p>
-            </div>
-            <div>
-              <h2><a href="/support/terms-conditions">Terms and conditions</a></h2>
-              <p>Information about the use of GOV.UK and liability</p>
-            </div>
-          </div>
-                  <section id="content" role="main" class="report-a-problem">
-            <h2>If you can’t find what you were looking for, help us improve GOV.UK by telling us:</h2>
-            <form class="support-form" accept-charset="UTF-8" action="/feedback" method="post">
-              <label for="what_doing">
-                What you were looking for
-                <input id="what_doing" name="what_doing" type="text" />
-              </label>
-
-              <input type="hidden" id="what_wrong" name="what_wrong" value="broken link (404)" />
-
-              <input type="hidden" name="utf8" value="✓" />
-              <button name="commit" type="submit" class="button">Send</button>
-            </form>
-            </section>
-        </div>
-      </article>
+<main id="content" role="main" class="group support-page">
+  <header class="page-header group">
+    <div class="full-width">
+      <h1>Help using GOV.UK</h1>
     </div>
-  </section>
+  </header>
+
+  <div class="article-container group">
+    <article role="article" class="group">
+      <div class="inner">
+        <p>Find out about GOV.UK, including the use of cookies, accessibility of the site, the privacy policy and terms and conditions of use.</p>
+        <div class="support-contents">
+          <div>
+            <h2><a href="/support/about-govuk">About GOV.UK</a></h2>
+            <p>Information about the website and the team that built it</p>
+          </div>
+          <div>
+            <h2><a href="/support/cookies">Cookies</a></h2>
+            <p>How cookies are used on GOV.UK and each cookie’s purpose</p>
+          </div>
+          <div>
+            <h2><a href="/support/browsers">Browsers</a></h2>
+            <p>Information about browsers and how to upgrade yours</p>
+          </div>
+          <div>
+            <h2><a href="/support/privacy-policy">Privacy policy</a></h2>
+            <p>GOV.UK’s approach to users’ privacy</p>
+          </div>
+          <div>
+            <h2><a href="/support/accessibility">Accessibility</a></h2>
+            <p>Details of accessibility and help using the internet</p>
+          </div>
+          <div>
+            <h2><a href="/support/terms-conditions">Terms and conditions</a></h2>
+            <p>Information about the use of GOV.UK and liability</p>
+          </div>
+        </div>
+        <section id="content" role="main" class="report-a-problem">
+          <h2>If you can’t find what you were looking for, help us improve GOV.UK by telling us:</h2>
+          <form class="support-form" accept-charset="UTF-8" action="/feedback" method="post">
+            <label for="what_doing">
+              What you were looking for
+              <input id="what_doing" name="what_doing" type="text" />
+            </label>
+
+            <input type="hidden" id="what_wrong" name="what_wrong" value="broken link (404)" />
+
+            <input type="hidden" name="utf8" value="✓" />
+            <button name="commit" type="submit" class="button">Send</button>
+          </form>
+        </section>
+      </div>
+    </article>
+  </div>
+
   <!-- related -->
   <div class="related-positioning">
     <div class="related-container">
-
       <div class="related" id="related">
         <div class="inner group">
-
           <h2 id="parent-section">Want to contact us directly?</h2>
           <nav role="navigation" aria-labelledby="parent-section">
             <ul>
@@ -75,15 +72,16 @@
             </ul>
           </nav>
           <a class="return-to-top" href="#content">Return to top &uarr;</a>
-       </div>
-     </div>
-
+        </div>
+      </div>
     </div>
   </div>
+</main>
+
   <!-- end related -->
 <% content_for :extra_stylesheets do %>
   <%= stylesheet_link_tag 'support-styles' %>
 <% end %>
 
-    
+
 

@@ -21,7 +21,7 @@ gem 'htmlentities', '4.3.1'
 if ENV['SLIMMER_DEV']
   gem 'slimmer', :path => '../slimmer'
 else
-  gem 'slimmer', '3.17.0'
+  gem 'slimmer', '3.19.0'
 end
 
 if ENV['CDN_DEV']
@@ -38,6 +38,7 @@ end
 
 gem "addressable"
 gem 'exception_notification', '3.0.1'
+gem 'logstasher', '0.2.5'
 
 group :assets do
   gem 'govuk_frontend_toolkit', '0.32.2'

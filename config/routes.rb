@@ -2,6 +2,7 @@ Frontend::Application.routes.draw do
   get "/homepage" => redirect("/")
   get "/search.json" => redirect { |params,req| "/api/search.json?q=#{CGI.escape(req.query_parameters['q'] || '')}" }
   get "/search" => "search#index", as: :search
+  post "/search" => proc { [405, {}, ["Method Not Allowed"]] } # Prevent non-GET requests for /search blowing up in the publication handlers below
   get "/search/opensearch" => "search#opensearch"
   get "/browse.json" => redirect("/api/tags.json?type=section&root_sections=true")
   get "/browse" => "browse#index", to: "browse#index"
@@ -41,9 +42,7 @@ Frontend::Application.routes.draw do
   get "/firekills", :to => "campaign#fire_kills"
   get "/knowbeforeyougo", :to => "campaign#know_before_you_go"
   get "/businesssupport", :to => "campaign#business_support"
-
-  # Temporary redirect that will be replaced with a campaign before long
-  get "/unimoney" => redirect("/student-finance", :status => 302)
+  get "/unimoney", :to => "campaign#unimoney"
 
   # Jobssearch form override (English and Welsh variants)
   constraints(:slug => /(jobsearch|chwilio-am-swydd)/) do

@@ -6,6 +6,9 @@ body.homepage {
   #global-header .search-toggle {
     display: none;
   }
+  #content {
+    max-width: 100%;
+  }
 }
 
 .root-index {
@@ -83,13 +86,14 @@ body.homepage {
 
 
   .homepage-top {
+    @extend %contain-floats;
     text-align: center;
-    overflow: hidden;
     background: $homepage-top-colour;
     color: $white;
 
     .homepage-top-inner {
       position: relative;
+      overflow: hidden;
       max-width: 1020px;
       margin: 0 auto;
       text-align: left;
@@ -241,6 +245,9 @@ body.homepage {
         min-height: 20em;
         @include ie-lte(7){
           margin-bottom: 0;
+        }
+        @include ie(6) {
+          height: 20em;
         }
       }
 
@@ -414,7 +421,7 @@ body.homepage {
         }
         strong {
           // Manually setting font-size rather than using the mixins size so we
-          // because the layout doesn't really work otherwise
+          // because the layout doesnt really work otherwise
           font-size: 53px;
           line-height: (55 / 53);
           font-weight: bold;
@@ -466,9 +473,11 @@ body.homepage {
       li {
         list-style: none;
         margin: 0;
-        padding: 10px 0 0;
-        @include core-16;
-
+        padding: 5px 0 0;
+        @include core-19;
+        a {
+          font-weight: bold;
+        }
         span {
           display: inline-block;
           min-width: 25px;

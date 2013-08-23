@@ -103,7 +103,9 @@ class TravelAdviceTest < ActionDispatch::IntegrationTest
 
       within '#global-breadcrumb nav' do
         assert page.has_selector?("li:nth-child(1) a[href='/']", :text => "Home")
-        assert page.has_selector?("li:nth-child(2) a[href='/foreign-travel-advice']", :text => "Foreign travel advice")
+        assert page.has_selector?("li:nth-child(2) a", :text => "Passports, travel and living abroad")
+        assert page.has_selector?("li:nth-child(3) a", :text => "Travel abroad")
+        assert page.has_selector?("li:nth-child(4) a[href='/foreign-travel-advice']", :text => "Foreign travel advice")
       end
 
       within '.page-header' do
@@ -222,7 +224,7 @@ class TravelAdviceTest < ActionDispatch::IntegrationTest
       visit "/foreign-travel-advice/turks-and-caicos-islands/print"
       assert_equal 200, page.status_code
 
-      within 'section[role=main]' do
+      within 'main[role=main]' do
         assert page.has_selector?('h1', :text => "Turks and Caicos Islands travel advice")
 
         section_titles = page.all('article h1').map(&:text)
