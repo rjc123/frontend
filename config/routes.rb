@@ -15,15 +15,31 @@ Frontend::Application.routes.draw do
   # http://stackoverflow.com/a/3443678
   get "*path.gif", to: proc {|env| [404, {}, ["Not Found"]] }
 
-  get "/help/feedback" => redirect("/feedback") # Handled by feedback app
-  get "/help/accessibility" => redirect("/support/accessibility")
-  get "/help/accessibility-policies" => redirect("/support/accessibility-policies")
-  get "/help/cookies" => redirect("/support/cookies")
-  get "/help/browsers" => redirect("/support/browsers")
-  get "/help/privacy-policy" => redirect("/support/privacy-policy")
-  get "/help" => redirect("/support")
+  # Redirects for support pages -> help pages
+  get "/support/about-govuk" => redirect("/help/about-govuk")
+  get "/support/accessibility" => redirect("/help/accessibility")
+  get "/support/browsers" => redirect("/help/browsers")
+  get "/support/cookies" => redirect("/help/cookies")
+  get "/support/privacy-policy" => redirect("/help/privacy-policy")
+  get "/support/terms-conditions" => redirect("/help/terms-conditions")
 
-  get "/support(/:action)", to: "support"
+  get "/support/accessibility-policies" => redirect("/help/accessibility")
+  get "/support/directgov-businesslink" => redirect("/help/about-govuk")
+  get "/support/linking-to-govuk" => redirect("/help/about-govuk")
+
+  get "/support/apis" => redirect("/help")
+  get "/support/broken-pages" => redirect("/help")
+  get "/support/government-gateway" => redirect("/help")
+  get "/support/health" => redirect("/help")
+  get "/support/jobs-employment-tools" => redirect("/help")
+  get "/support/student-finance" => redirect("/help")
+  get "/support/wales-scotland-ni" => redirect("/help")
+  get "/support" => redirect("/help")
+
+  get "/help/feedback" => redirect("/feedback") # Handled by feedback app
+  get "/help/accessibility-policies" => redirect("/help/accessibility")
+
+  get "/help(/:action)", to: "support"
 
   get "/tour", to: "root#tour"
   get "/exit", :to => "exit#exit"
