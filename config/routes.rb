@@ -32,7 +32,7 @@ Frontend::Application.routes.draw do
   get "/support/government-gateway" => redirect("/help")
   get "/support/health" => redirect("/help")
   get "/support/jobs-employment-tools" => redirect("/help")
-  get "/support/student-finance" => redirect("/help")
+  get "/support/student-finance" => redirect("/student-finance")
   get "/support/wales-scotland-ni" => redirect("/help")
   get "/support" => redirect("/help")
 
