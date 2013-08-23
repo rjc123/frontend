@@ -39,7 +39,7 @@ Frontend::Application.routes.draw do
   get "/help/feedback" => redirect("/feedback") # Handled by feedback app
   get "/help/accessibility-policies" => redirect("/help/accessibility")
 
-  get "/help", to: "support"
+  get "/help", to: "support#index"
 
   get "/tour", to: "root#tour"
   get "/exit", :to => "exit#exit"
